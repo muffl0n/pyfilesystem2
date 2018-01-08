@@ -302,7 +302,8 @@ class FTPFS(FS):
                  passwd='',
                  acct='',
                  timeout=10,
-                 port=21):
+                 port=21,
+                 proxy=None):
         super(FTPFS, self).__init__()
         self.host = host
         self.user = user
@@ -310,6 +311,10 @@ class FTPFS(FS):
         self.acct = acct
         self.timeout = timeout
         self.port = port
+
+        if proxy:
+            self.user = '{}@{}'.format(self.user, host)
+            self.host = proxy
 
         self.encoding = 'latin-1'
         self._ftp = None
